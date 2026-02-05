@@ -15,12 +15,13 @@ Result: FAIL (0.0 Accuracy)
 This zero-tolerance constraint necessitates a model architecture robust to outliers and capable of precise integer regression.
 
 # 🏗️ Architecture & Methodology
-1. The Backbone: EfficientNet-B3 (Noisy Student)
+##1. The Backbone: EfficientNet-B3 (Noisy Student)
 We utilize EfficientNet-B3 pre-trained on ImageNet with "Noisy Student" weights.
 
 Why: B3 offers an optimal trade-off between parameter efficiency and feature extraction depth.
 Benefit: The "Noisy Student" pre-training provides superior robustness to visual noise and occlusions compared to standard supervised pre-training.
-2. Custom Regression Head
+
+##2. Custom Regression Head
 The standard classification head was replaced with a density-estimation block:
 
 Pooling: Adaptive Average Pooling.
@@ -29,7 +30,8 @@ Hidden Layer: Linear (1536
  512) with Mish Activation.
 Regularization: Dropout (p=0.2) to prevent overfitting on synthetic textures.
 Output: Linear layer predicting 4 continuous floating-point values.
-3. Optimization Strategy
+
+##3. Optimization Strategy
 Loss Function: Huber Loss. chosen over MSE to prevent gradient explosion from outliers (e.g., confusing a texture for a massive cluster of nuts).
 Optimizer: AdamW with Cosine Annealing scheduler.
 Mixed Precision: Implemented torch.cuda.amp (FP16) for accelerated training.
