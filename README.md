@@ -4,7 +4,7 @@ NeuralGuard is a deep learning system designed to solve a fine-grained computer 
 
 Unlike standard object detection pipelines (e.g., YOLO), this project utilizes a Global Multi-Output Regression approach to achieve high-speed inference and "Exact Match" accuracy without the need for bounding box annotations.
 
-📌 Problem Statement
+# 📌 Problem Statement
 The objective is to predict the count of four distinct components in synthetic images.
 
 The Challenge: The evaluation metric is Exact Match Accuracy. A prediction is considered correct only if the counts for all four categories match the ground truth exactly.
@@ -14,7 +14,7 @@ Truth: [Bolt: 4, Pin: 0, Nut: 2, Washer: 2]
 Result: FAIL (0.0 Accuracy)
 This zero-tolerance constraint necessitates a model architecture robust to outliers and capable of precise integer regression.
 
-🏗️ Architecture & Methodology
+# 🏗️ Architecture & Methodology
 1. The Backbone: EfficientNet-B3 (Noisy Student)
 We utilize EfficientNet-B3 pre-trained on ImageNet with "Noisy Student" weights.
 
@@ -33,7 +33,7 @@ Output: Linear layer predicting 4 continuous floating-point values.
 Loss Function: Huber Loss. chosen over MSE to prevent gradient explosion from outliers (e.g., confusing a texture for a massive cluster of nuts).
 Optimizer: AdamW with Cosine Annealing scheduler.
 Mixed Precision: Implemented torch.cuda.amp (FP16) for accelerated training.
-📊 Dataset & Preprocessing
+# 📊 Dataset & Preprocessing
 The dataset consists of synthetic images containing randomized clusters of parts.
 
 Component	Class Index
